@@ -54,4 +54,4 @@ async def delete_product(product_id: int):
     return {"message": "Product deleted successfully"} 
 
 if __name__ == "__main__":
-    run(app, host="0.0.0.0", port=8001)
+    run(app, host="0.0.0.0", port=8002)
