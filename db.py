@@ -4,8 +4,8 @@ import psycopg2
 default_conn = psycopg2.connect(
     dbname="postgres",
     user="postgres",
-    password=12345,  # Tu contraseña de postgres
-    host="localhost"
+    password="bdproyecto",  # Tu contraseña de postgres
+    host="database-2.c7w6ds5r8lrc.us-east-1.rds.amazonaws.com"
 )
 default_conn.autocommit = True  # Necesario para crear una base de datos fuera de una transacción
 default_cursor = default_conn.cursor()
@@ -26,8 +26,8 @@ default_conn.close()
 conn = psycopg2.connect(
     dbname="productos",
     user="postgres",
-    password=12345,  # Tu contraseña de postgres
-    host="localhost"
+    password="bdproyecto",  # Tu contraseña de postgres
+    host="database-2.c7w6ds5r8lrc.us-east-1.rds.amazonaws.com"
 )
 
 cursor = conn.cursor()
