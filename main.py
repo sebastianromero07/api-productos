@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 from db import conn, commit
 from uvicorn import run
 
@@ -11,6 +12,14 @@ class Product(BaseModel):
     quantity: int
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Agrega el origen de tu aplicación React
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/products")
 async def get_products():
