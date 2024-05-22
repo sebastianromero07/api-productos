@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
 from db import conn, commit
 from uvicorn import run
 
@@ -11,7 +13,18 @@ class Product(BaseModel):
     price: float
     quantity: int
 
+class CustomCORSMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        # Agregar las cabeceras CORS necesarias
+        response = await call_next(request)
+        response.headers["Access-Control-Allow-Origin"] = "http://localhost:5173"  # Cambia esto por tu origen de React
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        return response
+        
 app = FastAPI()
+
+app.add_middleware(CustomCORSMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
